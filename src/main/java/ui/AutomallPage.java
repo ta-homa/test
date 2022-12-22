@@ -2,140 +2,144 @@ package ui;
 
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 import static org.hamcrest.CoreMatchers.containsString;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.Assert;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.How;
-import java.util.List;
+
 
 public class AutomallPage {
+    String result;
     //город
-    @FindBy(how = How.XPATH,using = "//*[@id='filter-city']/input")
-    private SelenideElement filterCity;
+    public SelenideElement filterCity = $(byXpath("//*[@id='filter-city']/input"));
     //марка
-    @FindBy(how = How.XPATH,using = "//*[@id='filter-mark']/input")
-    private SelenideElement filterMark;
+    public SelenideElement filterMark = $(byXpath("//*[@id='filter-mark']/input"));
     //модель
-    @FindBy(how = How.XPATH,using = "//*[@id='filter-model']/input")
-    private SelenideElement filterModel;
+    public SelenideElement filterModel = $(byXpath("//*[@id='filter-model']/input"));
     //чекбоксы горизонтального меню
     //чекбокс город
-    @FindBys({
-            @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[1]/div[1]/div[2]/div"),
-    })
-    private List<SelenideElement> horizontalCheckBoxTown;
+    public SelenideElement filterCityCheckBox = $(byXpath("//*[@aria-labelledby='filter-city']/div/div"));
     //чекбокс марка
-    @FindBys({
-            @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[1]/div[2]/div[2]/div"),
-    })
-    private List<SelenideElement> horizontalCheckBoxMark;
+    public SelenideElement filterMarkCheckBox = $(byXpath("//*[@aria-labelledby='filter-mark']/div/div"));
     //чекбокс модель
-    @FindBys({
-            @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[1]/div[3]/div[2]/div"),
-    })
-    private List<SelenideElement> horizontalCheckBoxModel;
+    public SelenideElement filterModelCheckBox = $(byXpath("//*[@aria-labelledby='filter-model']/div/div"));
     //чекбокс Только авто со скидкой
-    @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[2]/div/div/div")
-    private SelenideElement saleCheckBox;
+    public SelenideElement saleCheckBox = $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[2]/div/div/div"));
     //цвет
-    @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[3]/div[3]/div[3]/div[2]/label/input")
-    private SelenideElement colorFilter;
+    public SelenideElement filterColor = $(byXpath("//*[@aria-label='Цвет']/input"));
     //цвет чекбоксы
-    @FindBys({
-            @FindBy(how = How.XPATH, using = "//*[@id='marketplace-horizontal-filter']/div/div[3]/div[3]/div[3]/div[2]/div/div"),
-    })
-    private List<SelenideElement> colorCheckBox;
-    //кнопка Показать все предложения
-    @FindBy(how = How.XPATH,using = "//*[@id='marketplace-horizontal-filter']/div/div[4]/a")
-    private SelenideElement findCarBtn;
-    //Смотреть предложения
-    @FindBy (how = How.XPATH,using = "/html/body/div[1]/div[2]/div/main/div[3]/a/div[2]/div[2]/div")
-    private SelenideElement getFindCarBtn;
-    //из списка
-    @FindBy(how = How.XPATH,using = "/html/body/div[1]/div[2]/div[1]/h1")
-    private SelenideElement markShouldBe;
-    //из тачки
-    @FindBy(how = How.XPATH,using = "//*[@id='offers-list']/div[2]/div[2]/div[1]/div[2]/a/div[1]/div[1]/div/div/div")
-    private SelenideElement markResult;
+     public SelenideElement filterColorCheckBox(){
+        return $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[3]/div[3]/div[2]/div/div"));
+    }
+    //привод
+    public SelenideElement driveCheckBox(Integer i){
 
-    public void checkParam(String town, String mark, String model,String privod,
-                           String korobka,String kuzov, String toplivo,String color) throws Exception {
-        String result;
-        SelenideElement element;
+        return $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[1]/div[2]/div[2]/div[" + i + "]"));
+    }
+    //Коробка передач
+    public SelenideElement transcmissionCheckBox(Integer i){
+        return $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[1]/div[3]/div[2]/div[" + i + "]"));
+    }
+    //Тип кузова
+    ////*[@id="marketplace-horizontal-filter"]/div/div[3]/div[2]/div/div[1]
+    public SelenideElement bodyTypeCheckBox(Integer i){
+        return $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[2]/div/div[2]/div[" + i + "]"));
+    }
+    //Тип топлива
+    public SelenideElement fuelTypeCheckBox(Integer i){
+        return $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[3]/div[2]/div[2]/div[" + i + "]"));
+    }
+    //кнопка Показать все предложения
+    public SelenideElement showAllOffersBtn = $(byXpath("//*[@class='sbl-btn sbl-btn_accent sbl-btn_medium sbl-filter-footer__find']"));
+    //кнопка Смотреть предложения
+    public SelenideElement viewOffersBtn = $(byXpath("//*[@class='sbl-btn sbl-btn_medium w-100 sbl-btn_detail']"));
+    //текст из списка
+    public SelenideElement markShouldBe = $(byXpath("//*[@class='d-flex align-items-start mb-30']/h1"));
+    //текст из тачки
+    public SelenideElement markResult = $(byXpath("//*[@class='car-card__item-mark']"));
+
+    @Step("Выбрать город")
+    public void selectCity(String city){
         //город
         filterCity.click();
-        filterCity.setValue(town);
-        horizontalCheckBoxTown.get(0).click();
+        filterCity.setValue(city);
+        filterCityCheckBox.click();
+    }
+    @Step("Выбрать марку")
+    public void selectMark(String mark){
         //марка
         filterMark.click();
         filterMark.setValue(mark);
-        horizontalCheckBoxMark.get(0).click();
+        filterMarkCheckBox.click();
+    }
+    @Step("Выбрать модель")
+    public void selectModel(String model){
         //модель
         filterModel.click();
         filterModel.setValue(model);
-        horizontalCheckBoxModel.get(0).click();
-        sleep(1000);
-        //Товары со скидкой
-        if (saleCheckBox.isDisplayed() && saleCheckBox.isEnabled())
-            saleCheckBox.click();
-
-        //Привод
+        filterModelCheckBox.click();
+    }
+    @Step("Выбрать привод")
+    public void selectDrive(String drive) throws Exception {
         for (int i = 1; i <= 3; i++) {
-            element = $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[1]/div[2]/div[2]/div[" + i + "]"));
-            result = element.getText();
-            if (result.contains(privod)) {
-                element.click();
+            result = driveCheckBox(i).getText();
+            if (result.contains(drive)) {
+                driveCheckBox(i).click();
                 break;
-            }else if( i == 3) throw new Exception("Неверный параметр");
-
+            } else if (i == 3) throw new Exception("Неверный параметр");
         }
-        sleep(1000);
+    }
+    @Step("Выбрать коробку передач")
+    public void selectTransmission(String transmission) throws Exception {
         // Коробка передач
         for (int i = 1; i <= 2; i++) {
-            element = $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[1]/div[3]/div[2]/div[" + i + "]"));
-            result = element.getText();
-            if (result.contains(korobka)) {
-                element.click();
+            result = transcmissionCheckBox(i).getText();
+            if (result.contains(transmission)) {
+                transcmissionCheckBox(i).click();
                 break;
             }else  if( i == 2) throw new Exception("Неверный параметр");
         }
-        sleep(1000);
+    }
+    @Step("Выбрать тип кузова")
+    public void selectBodyType(String type) throws Exception {
         //Тип кузова
         for (int i = 1; i <= 19; i++) {
-            element = $(byXpath("//*[@id='marketplace-horizontal-filter']/div/div[3]/div[2]/div/div[2]/div[" + i + "]"));
-            result = element.getText();
-            if (result.contains(kuzov)) {
-                element.click();
+            result = bodyTypeCheckBox(i).getText();
+            if (result.contains(type)) {
+                bodyTypeCheckBox(i).click();
                 break;
             }else if( i == 19) throw new Exception("Неверный параметр");
         }
-        sleep(1000);
+    }
+    @Step("Выбрать тип топлива")
+    public void selectFuelType(String type) throws Exception {
         //Тип топлива
         for (int i = 1; i <= 5; i++) {
-            element = $(byXpath("//*[@id=\"marketplace-horizontal-filter\"]/div/div[3]/div[3]/div[2]/div[2]/div[" + i + "]"));
-            result = element.getText();
-            if (result.contains(toplivo)) {
-                element.click();
+            result = fuelTypeCheckBox(i).getText();
+            if (result.contains(type)) {
+                fuelTypeCheckBox(i).click();
                 break;
             }else if( i == 5) throw new Exception("Неверный параметр");
         }
-        sleep(1000);
-        //цвет
-        colorFilter.click();
-        colorFilter.setValue(color);
-        colorCheckBox.get(0).click();
-        sleep(1000);
-        //показать все предложения
-        findCarBtn.click();
-        sleep(1000);
     }
-    //
-    public void getMarka(){
-        getFindCarBtn.click();
+    @Step("Выбрать цвет")
+    public void selectColor (String color){
+        //цвет
+        filterColor.click();
+        filterColor.setValue(color);
+        filterColorCheckBox().click();
+    }
+    @Step("Клик по кнопке \"Показать все предложения\"")
+    public void showAllOffersBtnClick(){
+        showAllOffersBtn.click();
+    }
+    @Step("Клик по кнопке \"Смотреть предложения\"")
+    public void viewOffersBtnClick(){
+        viewOffersBtn.click();
+    }
+    @Step("Проверить что выбранная марка автомобиля соответствует марке в общем списке")
+    public void markShouldBSame(){
         Assert.assertThat(markShouldBe.getText(), containsString(markResult.getText()));
     }
 

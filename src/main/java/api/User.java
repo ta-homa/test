@@ -1,7 +1,7 @@
 package api;
 
 public class User {
-    private Integer id	;
+    private Long id	;
     private String username;
     private String firstName;
     private String lastName;
@@ -10,7 +10,7 @@ public class User {
     private String  phone;
     private Integer userStatus;
 
-    public User(Integer id, String username, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
+    public User(Long id, String username, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -21,11 +21,14 @@ public class User {
         this.userStatus = userStatus;
     }
 
-    public Integer getId() {
+    public User() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

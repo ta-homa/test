@@ -1,38 +1,39 @@
 package ui;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement ;
-import org.openqa.selenium.support.*;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.$;
 
 public class MainPage {
     //куки
-    @FindBy(how = How.XPATH, using = "//*[@id='cookie-warning']/div/div/button")
-    private SelenideElement cookiesBtn;
+    public SelenideElement cookiesBtn = $(byXpath("//*[@id='cookie-warning']/div/div/button"));
     //всплывающее окошко 30 сек
-    @FindBy(how = How.XPATH,using = "/html/body/div[5]/div/div[5]")
-    private SelenideElement callCloseBtn;
+    private SelenideElement callCloseBtn = $(byXpath("/html/body/div[5]/div/div[5]"));
     //лого
-    @FindBy(how = How.CLASS_NAME,using = "img-fluid")
-    private SelenideElement logoSberLeasing;
+    private SelenideElement logoSberLeasing = $(byClassName("img-fluid"));
     // кнопка Подобрать по параметрам
-    @FindBy(how = How.LINK_TEXT,using = "Подобрать по параметрам")
-    private SelenideElement filterBtn;
+    private SelenideElement filterBtn = $(byLinkText("Подобрать по параметрам"));
 
 
     //закрыть всплывающее окно 30 сек
+    @Step("Закрыть всплывающее окно")
     public void closeСall () {
         Configuration.timeout = 30000 ;
         callCloseBtn.shouldBe(visible).isDisplayed();
         callCloseBtn.click();
     }
     //закрыть куки
+    @Step("Закрыть куки")
     public void closeCookies(){
         if (cookiesBtn.isDisplayed()) {
             cookiesBtn.click();
         }
     }
     // клик Подобрать по параметрам
+    @Step("Клик по кнопке \"Подобрать по параметрам\"")
     public void findCar(){
         filterBtn.click();
     }
