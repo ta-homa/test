@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class MainPage {
     //куки
@@ -21,7 +22,7 @@ public class MainPage {
     //закрыть всплывающее окно 30 сек
     @Step("Закрыть всплывающее окно")
     public void closeСall () {
-        Configuration.timeout = 30000 ;
+        sleep(1000);
         callCloseBtn.shouldBe(visible).isDisplayed();
         callCloseBtn.click();
     }

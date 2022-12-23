@@ -1,17 +1,15 @@
 package ui;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Step;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ui.steps.Steps;
 
 import static com.codeborne.selenide.Selectors.byTitle;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
-import static org.hamcrest.CoreMatchers.containsString;
 
-public class FindCarTest {
+public class FindCarTest extends Steps{
     String currentUrl;
     MainPage mainPage;
     AutomallPage automallPage;
@@ -25,8 +23,7 @@ public class FindCarTest {
         currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         mainPage = open(currentUrl,MainPage.class);
         mainPage.closeCookies();
-         //  mainPage.closeСall();
-
+        //mainPage.closeСall();
     }
 
     @Test
@@ -34,17 +31,17 @@ public class FindCarTest {
         mainPage.findCar();
         currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         automallPage = open(currentUrl,AutomallPage.class);
-        automallPage.selectCity("Москва");
-        automallPage.selectMark("Lada");
-        automallPage.selectModel("Vesta Sport");
-        automallPage.selectDrive("передний");
-        automallPage.selectTransmission("механика");
-        automallPage.selectBodyType("седан");
-        automallPage.selectFuelType("бензин");
-        automallPage.selectColor("белый");
-        automallPage.showAllOffersBtnClick();
-        automallPage.viewOffersBtnClick();
-        automallPage.markShouldBSame();
+        selectCity("Москва");
+        selectMark("Lada");
+        selectModel("Vesta Sport");
+        selectDrive("передний");
+        selectTransmission("механика");
+        selectBodyType("седан");
+        selectFuelType("бензин");
+        selectColor("белый");
+        showAllOffersBtnClick();
+        viewOffersBtnClick();
+        markShouldBSame();
    }
 
 }
